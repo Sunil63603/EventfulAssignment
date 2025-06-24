@@ -1,0 +1,66 @@
+[
+  {
+    "id": "1",
+    "name": "Jane Doe",
+    "category": "Singer",
+    "location": "Mumbai",
+    "fee": "₹10K - ₹20K",
+    "imageUrl": "/images/Singerimage1.jpg"
+  },
+  {
+    "id": "2",
+    "name": "Rahul Sharma",
+    "category": "DJ",
+    "location": "Delhi",
+    "fee": "₹15K - ₹30K",
+    "imageUrl": "/images/DJimage1.jpg"
+  },
+  {
+    "id": "3",
+    "name": "DJ Sharma",
+    "category": "DJ",
+    "location": "Kolkata",
+    "fee": "₹15K - ₹30K",
+    "imageUrl": "/images/DJimage2.jpg"
+  },
+  {
+    "id": "4",
+    "name": "Ariande",
+    "category": "Dancer",
+    "location": "Kochin",
+    "fee": "₹15K - ₹20K",
+    "imageUrl": "/images/Dancerimage1.jpg"
+  },
+  {
+    "id": "5",
+    "name": "Jackson",
+    "category": "Dancer",
+    "location": "Chennai",
+    "fee": "₹10K - ₹50K",
+    "imageUrl": "/images/Dancerimage2.jpg"
+  },
+  {
+    "id": "6",
+    "name": "Alia Bhatt",
+    "category": "Dancer",
+    "location": "Hyderabad",
+    "fee": "₹15K - ₹30K",
+    "imageUrl": "/images/Dancerimage3.jpg"
+  },
+  {
+    "id": "7",
+    "name": "Rajan Kumar",
+    "category": "Singer",
+    "location": "Patna",
+    "fee": "₹15K - ₹30K",
+    "imageUrl": "/images/Singerimage1.jpg"
+  },
+  {
+    "id": "8",
+    "name": "Janardhan",
+    "category": "Musician",
+    "location": "Gujrat",
+    "fee": "₹5K - ₹30K",
+    "imageUrl": "/images/Singerimage3.jpg"
+  }
+]
