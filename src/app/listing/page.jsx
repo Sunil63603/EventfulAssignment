@@ -5,6 +5,12 @@ import { ArtistProvider } from "@/context/ArtistContext";
 import { ArtistGrid } from "@/components/artists/ArtistGrid.jsx";
 import { ArtistFilters } from "@/components/artists/ArtistFilters";
 
+//meta-data for each and every page for better SEO
+export const metadata = {
+  title: "Artist Listing | Artist Booking",
+  description: "Browse and filter artists by category, location, and fee",
+};
+
 const ArtistListingPageContent = () => {
   return (
     <div className="space-y-4">

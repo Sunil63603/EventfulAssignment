@@ -13,7 +13,10 @@ export const useArtists = () => {
   const context = useContext(ArtistContext);
 
   if (!context) {
-    throw new Error(`useArtists must be used within an ArtistProvider`);
+    throw new Error(
+      `useArtists must be used within an ArtistProvider. ` +
+        `Make sure you've wrapped your component tree with <ArtistProvider>.`
+    );
   }
 
   return context;
@@ -39,10 +42,10 @@ export const ArtistProvider = ({ children }) => {
     });
   }, [filters]);
 
-  const hasActiveFilters = !!(
-    filters.category ||
-    filters.location ||
-    filters.fee
+  // (memoized for performance)
+  const hasActiveFilters = useMemo(
+    () => !!(filters.category || filters.location || filters.fee),
+    [filters.category, filters.location, filters.fee]
   );
 
   const value = {

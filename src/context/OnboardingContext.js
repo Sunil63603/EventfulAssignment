@@ -10,13 +10,20 @@ import { getUniqueValues } from "@/components/artists/ArtistFilters";
 import { createContext, useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 
+//form validation using both 'react-hook-form' and 'zod';
+import { zodResolver } from "@hookform/resolvers/zod";
+import * as z from "zod";
+
 const OnboardingContext = createContext();
 
-//custom hooks
+//custom context hook
 export const useOnboarding = () => {
   const context = useContext(OnboardingContext);
   if (!context) {
-    throw new Error("useOnboarding must be used within an OnboardingProvider");
+    throw new Error(
+      "useOnboarding must be used within an OnboardingProvider. " +
+        "Check your component hierarchy."
+    );
   }
   return context;
 };
@@ -37,7 +44,19 @@ export const OnboardingProvider = ({ children }) => {
     "Tamil",
   ];
 
+  // Schema for form validation
+  const formSchema = z.object({
+    name: z.string().min(2, "Name must be at least 2 characters"),
+    bio: z.string().max(500, "Bio must be less than 500 characters"),
+    category: z.array(z.string()).min(1, "Select at least one category"),
+    languages: z.array(z.string()).min(1, "Select at least one language"),
+    fee: z.string().min(1, "Please select a fee range"),
+    location: z.string().min(2, "Location must be at least 2 characters"),
+    image: z.any().optional(),
+  });
+
   const form = useForm({
+    resolver: zodResolver(formSchema),
     defaultValues: {
       name: "",
       bio: "",
@@ -52,7 +71,17 @@ export const OnboardingProvider = ({ children }) => {
   const onSubmit = (data) => {
     console.log(`Artist Submitted:`, data);
     alert("Form submitted! Check the console for form data.");
-    form.reset();
+
+    // Reset form with proper default values
+    form.reset({
+      name: "",
+      bio: "",
+      category: [],
+      languages: [],
+      fee: "",
+      location: "",
+      image: null,
+    });
   };
 
   return (

@@ -25,6 +25,35 @@ import {
   SelectItem,
 } from "@/components/ui/select";
 
+//Function re-used in checkboxes.
+const handleCheckboxChange = (field, value, checked) => {
+  const newValue = checked
+    ? [...field.value, value]
+    : field.value.filter((v) => v !== value);
+  field.onChange(newValue);
+};
+
+//Profile-Image(optional) Validation
+const validateFile = (file) => {
+  if (!file) return null;
+
+  // File size validation (5MB limit)
+  const maxSize = 5 * 1024 * 1024;
+  if (file.size > maxSize) {
+    alert("File size must be less than 5MB");
+    return null;
+  }
+
+  // File type validation
+  const allowedTypes = ["image/jpeg", "image/png", "image/webp"];
+  if (!allowedTypes.includes(file.type)) {
+    alert("Only JPEG, PNG, and WebP files are allowed");
+    return null;
+  }
+
+  return file;
+};
+
 export default function OnboardingForm() {
   //categories,languages,feeRanges are options used in form dropdowns
   const { categories, languages, feeRanges, form, onSubmit } = useOnboarding();
@@ -68,66 +97,68 @@ export default function OnboardingForm() {
 
           {/* Category */}
           <FormItem>
-            <FormLabel>Category</FormLabel>
-            <div className="grid grid-cols-2 gap-2">
-              {categories.map((cat) => (
-                <FormField
-                  key={cat}
-                  name="category"
-                  control={form.control}
-                  render={({ field }) => (
-                    <FormItem className="flex items-center space-x-2">
-                      <FormControl>
-                        <Checkbox
-                          checked={field.value?.includes(cat)}
-                          onCheckedChange={(checked) => {
-                            const newValue = checked
-                              ? [...field.value, cat]
-                              : field.value.filter((v) => v !== cat);
-                            field.onChange(newValue);
-                          }}
-                        />
-                      </FormControl>
-                      <FormLabel className="text-sm font-normal">
-                        {cat}
-                      </FormLabel>
-                    </FormItem>
-                  )}
-                />
-              ))}
-            </div>
+            <fieldset className="border border-gray-200 rounded p-2">
+              <legend className="text-sm font-medium px-1">
+                <FormLabel>Category</FormLabel>
+              </legend>
+              <div className="grid grid-cols-2 gap-2">
+                {categories.map((cat) => (
+                  <FormField
+                    key={cat}
+                    name="category"
+                    control={form.control}
+                    render={({ field }) => (
+                      <FormItem className="flex items-center space-x-2">
+                        <FormControl>
+                          <Checkbox
+                            checked={field.value?.includes(cat)}
+                            onCheckedChange={(checked) =>
+                              handleCheckboxChange(field, cat, checked)
+                            }
+                          />
+                        </FormControl>
+                        <FormLabel className="text-sm font-normal">
+                          {cat}
+                        </FormLabel>
+                      </FormItem>
+                    )}
+                  />
+                ))}
+              </div>
+            </fieldset>
           </FormItem>
 
           {/* Languages */}
           <FormItem>
-            <FormLabel>Languages Spoken</FormLabel>
-            <div className="grid grid-cols-2 gap-2">
-              {languages.map((lang) => (
-                <FormField
-                  key={lang}
-                  name="languages"
-                  control={form.control}
-                  render={({ field }) => (
-                    <FormItem className="flex items-center space-x-2">
-                      <FormControl>
-                        <Checkbox
-                          checked={field.value?.includes(lang)}
-                          onCheckedChange={(checked) => {
-                            const newValue = checked
-                              ? [...field.value, lang]
-                              : field.value.filter((v) => v !== lang);
-                            field.onChange(newValue);
-                          }}
-                        />
-                      </FormControl>
-                      <FormLabel className="text-sm font-normal">
-                        {lang}
-                      </FormLabel>
-                    </FormItem>
-                  )}
-                />
-              ))}
-            </div>
+            <fieldset className="border border-gray-200 rounded p-2">
+              <legend className="text-sm font-medium px-1">
+                <FormLabel>Languages Spoken</FormLabel>
+              </legend>
+              <div className="grid grid-cols-2 gap-2">
+                {languages.map((lang) => (
+                  <FormField
+                    key={lang}
+                    name="languages"
+                    control={form.control}
+                    render={({ field }) => (
+                      <FormItem className="flex items-center space-x-2">
+                        <FormControl>
+                          <Checkbox
+                            checked={field.value?.includes(lang)}
+                            onCheckedChange={(checked) =>
+                              handleCheckboxChange(field, lang, checked)
+                            }
+                          />
+                        </FormControl>
+                        <FormLabel className="text-sm font-normal">
+                          {lang}
+                        </FormLabel>
+                      </FormItem>
+                    )}
+                  />
+                ))}
+              </div>
+            </fieldset>
           </FormItem>
 
           {/* Fee Range */}
@@ -182,7 +213,9 @@ export default function OnboardingForm() {
                   <Input
                     type="file"
                     accept="image/*"
-                    onChange={(e) => field.onChange(e.target.files?.[0])}
+                    onChange={(e) =>
+                      field.onChange(validateFile(e.target.files?.[0]))
+                    }
                   />
                 </FormControl>
               </FormItem>
