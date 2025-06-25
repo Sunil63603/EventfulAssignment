@@ -1,3 +1,4 @@
+//to make this a server component, layout code has been split.
 import Layout from "@/components/common/Layout.jsx";
 import "./globals.css";
 

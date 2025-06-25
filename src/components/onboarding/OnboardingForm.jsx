@@ -1,6 +1,9 @@
 "use client";
 
+//onboarding context
 import { useOnboarding } from "@/context/OnboardingContext";
+
+//shadcn components
 import {
   Form,
   FormField,
@@ -23,6 +26,7 @@ import {
 } from "@/components/ui/select";
 
 export default function OnboardingForm() {
+  //categories,languages,feeRanges are options used in form dropdowns
   const { categories, languages, feeRanges, form, onSubmit } = useOnboarding();
 
   return (

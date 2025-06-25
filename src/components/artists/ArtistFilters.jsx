@@ -1,8 +1,12 @@
 "use client";
 
+//for caching(performance optimization)
 import { useMemo } from "react";
+
+//this context is shared between all 'artist-listing' components
 import { useArtists } from "@/context/ArtistContext";
 
+//this function is used in all dropdowns(to display unique options)
 export const getUniqueValues = (data, key) => [
   ...new Set(data.map((item) => item[key])),
 ];
@@ -10,6 +14,7 @@ export const getUniqueValues = (data, key) => [
 export const ArtistFilters = () => {
   const { filters, setFilters, artists } = useArtists();
 
+  //3 filtering choices
   const { categories, locations, fees } = useMemo(
     () => ({
       categories: getUniqueValues(artists, "category"),

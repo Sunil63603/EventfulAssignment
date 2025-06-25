@@ -10,7 +10,7 @@ import { Button } from "@/components/ui/button";
 //NextJS imports
 import Link from "next/link";
 
-//method which returns all unique values. (ie,unique categories)
+//method which returns all unique values. (ie,unique categories in this case)
 import { getUniqueValues } from "../artists/ArtistFilters";
 
 export default function LandingPage() {

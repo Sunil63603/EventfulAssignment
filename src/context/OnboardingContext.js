@@ -1,14 +1,18 @@
 "use client";
 
+//static JSON files
 import artistsData from "@/data/artists.json";
 
-import { createContext, useContext, useState } from "react";
+//function which returns unique values to be displayed in dropdowns
 import { getUniqueValues } from "@/components/artists/ArtistFilters";
 
+//react hooks
+import { createContext, useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 
 const OnboardingContext = createContext();
 
+//custom hooks
 export const useOnboarding = () => {
   const context = useContext(OnboardingContext);
   if (!context) {
@@ -18,9 +22,11 @@ export const useOnboarding = () => {
 };
 
 export const OnboardingProvider = ({ children }) => {
+  //dropdown options
   const categories = getUniqueValues(artistsData, "category");
   const feeRanges = getUniqueValues(artistsData, "fee");
-  // Static list for languages to match the form's intent
+
+  // Static list for languages
   const languages = [
     "English",
     "Hindi",

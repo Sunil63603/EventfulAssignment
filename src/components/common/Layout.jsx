@@ -12,7 +12,7 @@ import { useState } from "react";
 
 export default function Layout({ children }) {
   //Hooks used👇
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false); //to open dropdown using 'Hamburger' icon
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false); //to open dropdown using 'Hamburger' icon in mobile view
   const pathname = usePathname();
 
   //variable to indicate current active button in navbar at the top

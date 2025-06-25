@@ -1,3 +1,4 @@
+//shadcn imports
 import {
   Table,
   TableBody,
@@ -7,6 +8,8 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
+
+//used to display all submissions in Table
 import artists from "@/data/artists.json";
 
 export default function ManagerDashboardPage() {

@@ -1,9 +1,16 @@
 "use client";
 
+//this context file is used to share data between all 'artist-listing' file
 import { useArtists } from "@/context/ArtistContext";
+
+//shadcn components
 import { Card, CardContent, CardTitle, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+
+//NextJS imports.
 import Image from "next/image";
+
+//Icons used in each and every card
 import { StarIcon } from "../../../public/icons/StarIcon";
 import { LocationIcon } from "../../../public/icons/LocationIcon"; // Assuming you created this
 
