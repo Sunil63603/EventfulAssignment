@@ -10,9 +10,9 @@ import { getUniqueValues } from "@/components/artists/ArtistFilters";
 import { createContext, useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 
-//form validation using both 'react-hook-form' and 'zod';
-import { zodResolver } from "@hookform/resolvers/zod";
-import * as z from "zod";
+//form validation using both 'react-hook-form' and 'yup';
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
 
 const OnboardingContext = createContext();
 
@@ -45,18 +45,35 @@ export const OnboardingProvider = ({ children }) => {
   ];
 
   // Schema for form validation
-  const formSchema = z.object({
-    name: z.string().min(2, "Name must be at least 2 characters"),
-    bio: z.string().max(500, "Bio must be less than 500 characters"),
-    category: z.array(z.string()).min(1, "Select at least one category"),
-    languages: z.array(z.string()).min(1, "Select at least one language"),
-    fee: z.string().min(1, "Please select a fee range"),
-    location: z.string().min(2, "Location must be at least 2 characters"),
-    image: z.any().optional(),
+  const formSchema = yup.object().shape({
+    name: yup.string().required("Name is required"),
+    bio: yup.string().required("Bio is required"),
+    category: yup
+      .array()
+      .of(yup.string())
+      .min(1, "Select at least one category"),
+    languages: yup
+      .array()
+      .of(yup.string())
+      .min(1, "Select at least one language"),
+    fee: yup.string().required("Fee range is required"),
+    location: yup.string().required("Location is required"),
+    image: yup
+      .mixed()
+      .nullable()
+      .notRequired()
+      .test("fileSize", "File too large", (value) => {
+        if (!value) return true; // optional
+        return value.size <= 5 * 1024 * 1024;
+      })
+      .test("fileType", "Unsupported file type", (value) => {
+        if (!value) return true;
+        return ["image/jpeg", "image/png", "image/webp"].includes(value.type);
+      }),
   });
 
   const form = useForm({
-    resolver: zodResolver(formSchema),
+    resolver: yupResolver(formSchema),
     defaultValues: {
       name: "",
       bio: "",
